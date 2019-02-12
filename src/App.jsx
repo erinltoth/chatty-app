@@ -28,6 +28,7 @@ export default class App extends Component {
         }
       ]
     }
+    this.addNewMessage = this.addNewMessage.bind(this);
   }
 
   componentDidMount() {
@@ -42,9 +43,12 @@ export default class App extends Component {
       this.setState({messages: messages})
     }, 3000);
   }
-  
-  render() {
-    // more code here..
+
+  addNewMessage(newMessage) {
+    const oldMessages = this.state.messages;
+    const newMessages = oldMessages.concat(newMessage);
+    this.setState({messages: newMessages});
+    console.log("newState:", this.state.messages);
   }
 
   render() {
@@ -52,7 +56,7 @@ export default class App extends Component {
       <div>
         <Nav />
         <MessageList messages={this.state.messages} />
-        <ChatBar currentUser={this.state.currentUser} />
+        <ChatBar currentUser={this.state.currentUser} addNewMessage={this.addNewMessage} />
       </div>
     );
   }
