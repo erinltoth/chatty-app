@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 export default class Message extends Component {
   render(){
-    console.log("message props:", this.props.messages);
     const messages = this.props.messages.map((message) => {
       console.log("props: ", this.props);
       return (

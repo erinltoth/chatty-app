@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 
+
 const Nav = () => {
   return (
     <nav className="navbar">
@@ -32,6 +33,10 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    let socket = new WebSocket(`ws://${window.location.hostname}:3001`)
+    socket.onopen = () => {
+    console.log("Connected to server");    // when the socket opens
+  }
     console.log("componentDidMount <App />");
     setTimeout(() => {
       console.log("Simulating incoming message");
