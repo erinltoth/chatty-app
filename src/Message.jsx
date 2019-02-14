@@ -21,7 +21,6 @@ export default class Message extends Component {
             )
             break;
       }
-      
       });
     return (
       <div>

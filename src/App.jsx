@@ -7,7 +7,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: "Bob",
+      currentUser: "Anonymous",
       messages: [],
       userCount: ""
     }
@@ -19,13 +19,10 @@ export default class App extends Component {
     this.socket.send(JSON.stringify(newMessage));
   }
 
-  
-
   addNewUser = (newUsername) => {
     this.socket.send(JSON.stringify(newUsername));
 
   }
-
 
   componentDidMount() {
     this.socket = new WebSocket(`ws://${window.location.hostname}:3001`)
@@ -57,13 +54,8 @@ export default class App extends Component {
           throw new Error("Unknown event type" + data.type);
       }
     }
-   
-
     this.socket.onclose = (event) => {
       console.log('Client disconnected')
-  
-      // At this point in time wss.clients no longer contains the ws object
-      // of the client who disconnected
     };
   }
 

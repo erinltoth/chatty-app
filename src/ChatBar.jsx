@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-
 export default class ChatBar extends Component {
   handleKeyPress = event => {
     if(event.key == 'Enter') {
@@ -38,7 +37,7 @@ export default class ChatBar extends Component {
       <form>
       <footer className="chatbar">
       <input className="chatbar-username" defaultValue={this.props.currentUser} name="username" onKeyPress={this.handleKeyPress} />
-        <input className="chatbar-message" defaultValue={this.props.contentValue} placeholder="Type a message and hit ENTER" name="newMessage" onKeyPress={this.handleKeyPress} />
+      <input className="chatbar-message" defaultValue={this.props.contentValue} placeholder="Type a message and hit ENTER" name="newMessage" onKeyPress={this.handleKeyPress} />
       </footer> 
       </form>
     );

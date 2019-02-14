@@ -1,6 +1,5 @@
 const express = require('express');
 const uuidv4 = require('uuid/v4');
-
 const WebSocket = require('ws');
 const SocketServer = WebSocket.Server;
 
@@ -24,9 +23,6 @@ wss.broadcast = function broadcast(data) {
   });
 };
 
-// Set up a callback that will run when a client connects to the server
-// When a client connects they are assigned a socket, represented by
-// the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('Client connected');
   console.log(wss.clients.size);
@@ -53,7 +49,6 @@ wss.on('connection', (ws) => {
     }
   })
   
-  // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () =>{
     let newUserMsg = {
       userCount: wss.clients.size,
