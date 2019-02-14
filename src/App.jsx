@@ -33,8 +33,8 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    let socket = new WebSocket(`ws://${window.location.hostname}:3001`)
-    socket.onopen = () => {
+    this.socket = new WebSocket(`ws://${window.location.hostname}:3001`)
+    this.socket.onopen = () => {
     console.log("Connected to server");    // when the socket opens
   }
     console.log("componentDidMount <App />");
@@ -50,10 +50,12 @@ export default class App extends Component {
   }
 
   addNewMessage(newMessage) {
-    const oldMessages = this.state.messages;
-    const newMessages = oldMessages.concat(newMessage);
-    this.setState({messages: newMessages});
-    console.log("newState:", this.state.messages);
+    console.log("testing");
+    let msg = JSON.stringify(newMessage);
+    // const oldMessages = this.state.messages;
+    // const newMessages = oldMessages.concat(newMessage);
+    this.socket.send(msg);
+    // this.setState({messages: newMessages});
   }
 
   render() {
