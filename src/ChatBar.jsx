@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { generateRandomId } from './utils.js';
 
 
 export default class ChatBar extends Component {

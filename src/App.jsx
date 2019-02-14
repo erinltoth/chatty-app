@@ -28,7 +28,7 @@ export default class App extends Component {
 
   addNewUser = (newUsername) => {
     this.setState({
-      currentUser: newUsername
+      currentUser: newUsername.username
     });
   }
 

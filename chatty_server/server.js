@@ -24,6 +24,7 @@ wss.on('connection', (ws) => {
   ws.on('message', function incoming (message) {
     console.log("test ",message);
     const msg = JSON.parse(message);
+    msg.type = "incomingMessage";
     msg.id = uuidv4();
     console.log('User: ' + msg.username + " says  " + msg.content + " " + msg.id);
     wss.clients.forEach(function each(client) {
