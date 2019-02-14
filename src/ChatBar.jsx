@@ -27,13 +27,21 @@ export default class ChatBar extends Component {
     if(event.key == 'Enter') {
       event.preventDefault();
       if(event.target.name == "username") {
-        const newUsername = {
-          type: "postNotification",
-          username: event.target.value,
-          oldUser: this.props.currentUser
-        };
-        console.log("User");
-        this.props.addNewUser(newUsername);
+        if (event.target.value) {
+          const newUsername = {
+            type: "postNotification",
+            username: event.target.value,
+            oldUser: this.props.currentUser
+          };
+          this.props.addNewUser(newUsername);
+        } else {
+          const newUsername = {
+            type: "postNotification",
+            username: "Anonymous",
+            oldUser: this.props.currentUser
+          };
+          this.props.addNewUser(newUsername);
+        }
       } else if (event.target.name == "newMessage") {
         const newMessage = {
           type: "postMessage",

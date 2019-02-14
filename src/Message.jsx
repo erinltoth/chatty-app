@@ -30,7 +30,3 @@ export default class Message extends Component {
     );
   }
 }
-
-{/* <div class="notification">
-  <span class="notification-content">Anonymous1 changed their name to nomnom.</span>
-</div> */}
