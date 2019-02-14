@@ -16,46 +16,31 @@ export default class App extends Component {
     super(props);
     this.state = {
       currentUser: "Bob",
-      messages: [
-        {
-          username: "Bob",
-          content: "Has anyone seen my marbles?",
-          id: 1
-        },
-        {
-          username: "Anonymous",
-          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
-          id: 2
-        }
-      ]
+      messages: [],
     }
     this.addNewMessage = this.addNewMessage.bind(this);
+    this.addNewUser = this.addNewUser.bind(this);
+  } 
+
+  addNewMessage = (newMessage) => {
+    this.socket.send(JSON.stringify(newMessage));
+  }
+
+  addNewUser = (newUsername) => {
+    this.setState({
+      currentUser: newUsername
+    });
   }
 
   componentDidMount() {
     this.socket = new WebSocket(`ws://${window.location.hostname}:3001`)
-    this.socket.onopen = () => {
-    console.log("Connected to server");    // when the socket opens
-  }
-    console.log("componentDidMount <App />");
-    setTimeout(() => {
-      console.log("Simulating incoming message");
-      // Add a new message to the list of messages in the data store
-      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
-      const messages = this.state.messages.concat(newMessage)
-      // Update the state of the app component.
-      // Calling setState will trigger a call to render() in App and all child components.
-      this.setState({messages: messages})
-    }, 3000);
-  }
-
-  addNewMessage(newMessage) {
-    console.log("testing");
-    let msg = JSON.stringify(newMessage);
-    // const oldMessages = this.state.messages;
-    // const newMessages = oldMessages.concat(newMessage);
-    this.socket.send(msg);
-    // this.setState({messages: newMessages});
+    this.socket.onmessage = (event) => {
+      const newMessage = JSON.parse(event.data);
+      let allMessages = this.state.messages.concat(newMessage);
+      this.setState({
+        messages: allMessages
+      });
+    }
   }
 
   render() {
