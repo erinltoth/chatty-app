@@ -2,27 +2,6 @@ import React, {Component} from 'react';
 
 
 export default class ChatBar extends Component {
-  // onSubmit = evt => {
-  //   evt.preventDefault();
-  //   const newMessage = {
-  //     type: "postMessage",
-  //     username: evt.target.elements.username.value,
-  //     content: evt.target.elements.newMessage.value,
-  //   };
-  //   this.props.addNewMessage(newMessage);
-  //   evt.target.elements.newMessage.value = "";
-  // };
-  // handleKeyPress= evt => {
-  //   if(event.key == 'Enter') {
-  //     const newMessage = {
-  //       type: "postMessage",
-  //       username: this.props.currentUser,
-  //       content: evt.target.elements.newMessage.value
-  //     };
-  //     this.props.addNewMessage(newMessage);
-  //     evt.target.elements.newMessage.value = "";
-  //   }
-  // }
   handleKeyPress = event => {
     if(event.key == 'Enter') {
       event.preventDefault();
@@ -52,12 +31,6 @@ export default class ChatBar extends Component {
         this.props.addNewMessage(newMessage);
         event.target.value = "";
       }
-      // const newUsername = {
-      //   type: "postNotification",
-      //   username: evt.target.elements.username.value
-      // }
-      // // const newUsername = evt.target.elements.username.value;
-      // this.props.addNewUser(newUsername);
     }
   };
   render() {

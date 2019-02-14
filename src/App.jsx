@@ -1,15 +1,7 @@
 import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
-
-
-const Nav = () => {
-  return (
-    <nav className="navbar">
-      <a href="/" className="navbar-brand">Chatty</a>
-    </nav>
-  )
-}
+import Nav from './Nav.jsx';
 
 export default class App extends Component {
   constructor(props) {
@@ -17,6 +9,7 @@ export default class App extends Component {
     this.state = {
       currentUser: "Bob",
       messages: [],
+      userCount: ""
     }
     this.addNewMessage = this.addNewMessage.bind(this);
     this.addNewUser = this.addNewUser.bind(this);
@@ -26,10 +19,13 @@ export default class App extends Component {
     this.socket.send(JSON.stringify(newMessage));
   }
 
+  
+
   addNewUser = (newUsername) => {
     this.socket.send(JSON.stringify(newUsername));
 
   }
+
 
   componentDidMount() {
     this.socket = new WebSocket(`ws://${window.location.hostname}:3001`)
@@ -52,16 +48,29 @@ export default class App extends Component {
             messages: allNotifications
           })
           break;
+        case "incomingUsers":
+          this.setState({
+            userCount: newMessage.userCount
+          })
+          break;
         default:
           throw new Error("Unknown event type" + data.type);
       }
     }
+   
+
+    this.socket.onclose = (event) => {
+      console.log('Client disconnected')
+  
+      // At this point in time wss.clients no longer contains the ws object
+      // of the client who disconnected
+    };
   }
 
   render() {
     return (
       <div>
-        <Nav />
+        <Nav userCount={this.state.userCount} />
         <MessageList messages={this.state.messages} />
         <ChatBar currentUser={this.state.currentUser} addNewMessage={this.addNewMessage} addNewUser={this.addNewUser} />
       </div>
