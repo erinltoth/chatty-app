@@ -4,12 +4,24 @@ export default class Message extends Component {
   render(){
     const messages = this.props.messages.map((message) => {
       console.log("props: ", this.props);
-      return (
-        <div className="message" key={message.id}>
-          <span className="message-username">{message.username}</span>
-          <span className="message-content">{message.content}</span>
-        </div>
-      )
+      switch(message.type) {
+        case "incomingMessage": 
+          return (
+            <div className="message" key={message.id}>
+              <span className="message-username">{message.username}</span>
+              <span className="message-content">{message.content}</span>
+            </div>
+          )
+          break;
+        case "incomingNotification":
+            return (
+              <div className="notification">
+                <span className="notification-content">{message.oldUser} is now {message.username}</span>
+              </div>
+            )
+            break;
+      }
+      
       });
     return (
       <div>
