@@ -1,5 +1,5 @@
 ## Chatty 
-Chatty is a real-time chat app that allows users to send and receive messages and notifications, change their username and view the number of online users. Chatty is built using React, Node, Webpack, and Babel. 
+Chatty is a real-time chat app that allows users to send and receive messages and notifications, change their username and view the number of online users. Chatty is built using React, Node, Webpack, and Babel. It is based on [React-Simple-Boilerplate](https://github.com/lighthouse-labs/react-simple-boilerplate)
 
 ### Usage
 
