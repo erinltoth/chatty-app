@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 export default class ChatBar extends Component {
+  // Function to handle KeyPress events from username and message input
   handleKeyPress = event => {
     if(event.key == 'Enter') {
       event.preventDefault();

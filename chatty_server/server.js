@@ -3,6 +3,7 @@ const uuidv4 = require('uuid/v4');
 const WebSocket = require('ws');
 const SocketServer = WebSocket.Server;
 
+// Function to randomly assign a colour
 addNewColour = () => {
   let colourArray = ['#44355B', '#47E5BC', '#EFCA08', '#48BEFF', '#912F56', '#000000'];
   let randomColour = colourArray[Math.floor(Math.random()*colourArray.length)];
@@ -29,6 +30,8 @@ wss.broadcast = function broadcast(data) {
   });
 };
 
+// Handle events on connection to WebSockets
+// On a new connection, assign a new username colour which will then be applied to experience of all users. At the same time, update user count for all users.
 wss.on('connection', (ws, req) => {
   console.log('Client connected');
   wss.clients.forEach(function each(client) {
@@ -47,7 +50,7 @@ wss.on('connection', (ws, req) => {
     }
     wss.broadcast(JSON.stringify(newUserMsg));
   
-  
+  // Handle incoming messages from the client based on message type.
   ws.on('message', function incoming (message) {
     const msg = JSON.parse(message);
     switch(msg.type) {
@@ -66,6 +69,7 @@ wss.on('connection', (ws, req) => {
     }
   })
   
+  // On close, update the user count for all users.
   ws.on('close', () =>{
     let newUserMsg = {
       userCount: wss.clients.size,

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 export default class Nav extends Component {
   render() {
+    // Update user count for all users
     if (this.props.userCount > 1) {
       return (
         <nav className='navbar'>

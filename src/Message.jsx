@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 export default class Message extends Component {
   render(){
+    // Create dynamic message and notification objects
     const messages = this.props.messages.map((message) => {
       switch(message.type) {
         case 'incomingMessage': 
