@@ -4,7 +4,7 @@ const WebSocket = require('ws');
 const SocketServer = WebSocket.Server;
 
 addNewColour = () => {
-  let colourArray = ["#44355B", "#47E5BC", "#EFCA08", "#48BEFF", "#912F56", "#000000"];
+  let colourArray = ['#44355B', '#47E5BC', '#EFCA08', '#48BEFF', '#912F56', '#000000'];
   let randomColour = colourArray[Math.floor(Math.random()*colourArray.length)];
   return randomColour;
 }
@@ -35,33 +35,30 @@ wss.on('connection', (ws, req) => {
     if (client === ws) {
       let newUserMsg = {
         userCount: wss.clients.size,
-        type: "incomingColour",
+        type: 'incomingColour',
         currentColour: addNewColour()
       }
-      console.log(newUserMsg);
       wss.broadcast(JSON.stringify(newUserMsg));
     }
   }) 
-    console.log("NOT HERE!");
     let newUserMsg = {
     userCount: wss.clients.size,
-    type: "incomingUsers"  
+    type: 'incomingUsers'  
     }
-    console.log(newUserMsg);
     wss.broadcast(JSON.stringify(newUserMsg));
   
   
   ws.on('message', function incoming (message) {
     const msg = JSON.parse(message);
     switch(msg.type) {
-      case "postMessage":
-        msg.type = "incomingMessage";
+      case 'postMessage':
+        msg.type = 'incomingMessage';
         msg.id = uuidv4();
         let newMessage = JSON.stringify(msg);
         wss.broadcast(newMessage);
         break;
-      case "postNotification":
-        msg.type = "incomingNotification";
+      case 'postNotification':
+        msg.type = 'incomingNotification';
         msg.id = uuidv4();
         let newNotification = JSON.stringify(msg);
         wss.broadcast(newNotification);
@@ -72,7 +69,7 @@ wss.on('connection', (ws, req) => {
   ws.on('close', () =>{
     let newUserMsg = {
       userCount: wss.clients.size,
-      type: "incomingUsers"
+      type: 'incomingUsers'
     }
     wss.broadcast(JSON.stringify(newUserMsg));
     console.log('Client disconnected')

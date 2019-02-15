@@ -8,9 +8,9 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: "Anonymous",
+      currentUser: 'Anonymous',
       messages: [],
-      userCount: ""
+      userCount: ''
     }
     this.addNewMessage = this.addNewMessage.bind(this);
     this.addNewUser = this.addNewUser.bind(this);
@@ -32,29 +32,29 @@ export default class App extends Component {
   componentDidMount() {
     this.socket = new WebSocket(`ws://${window.location.hostname}:3001`)
     this.socket.onopen = (event) => {
-      console.log("Connected to server");
+      console.log('Connected to server');
     };
     this.socket.onmessage = (event) => {
       const newMessage = JSON.parse(event.data);
       switch (newMessage.type) {
-        case "incomingMessage":
+        case 'incomingMessage':
           let allMessages = this.state.messages.concat(newMessage);
           this.setState({
             messages: allMessages
           });
           break;
-        case "incomingNotification":
+        case 'incomingNotification':
           let allNotifications = this.state.messages.concat(newMessage);
           this.setState({
             messages: allNotifications
           })
           break;
-        case "incomingUsers":
+        case 'incomingUsers':
           this.setState({
             userCount: newMessage.userCount
           })
           break;
-        case "incomingColour":
+        case 'incomingColour':
           const newColour = newMessage.currentColour
             this.setState({
               userCount: newMessage.userCount,
@@ -62,7 +62,7 @@ export default class App extends Component {
             })
           return newColour;
         default:
-          throw new Error("Unknown event type" + data.type);
+          throw new Error('Unknown event type' + data.type);
       }
     }
     this.socket.onclose = (event) => {
