@@ -28,3 +28,11 @@ open http://localhost:3000
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 * SASS
+
+### Screenshots
+
+![Chatty Main Page](https://github.com/erinltoth/chatty-app/blob/master/docs/main-page.png?raw=true)
+The Main Page of Chatty
+
+![User Count](https://github.com/erinltoth/chatty-app/blob/master/docs/user-count.png?raw=true)
+The user count is live depending on when users open or close their connection to the server.
