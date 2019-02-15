@@ -3,6 +3,7 @@ import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 import Nav from './Nav.jsx';
 
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -20,9 +21,13 @@ export default class App extends Component {
   }
 
   addNewUser = (newUsername) => {
+    this.setState({
+      currentUser: newUsername.username
+    })
     this.socket.send(JSON.stringify(newUsername));
-
   }
+
+
 
   componentDidMount() {
     this.socket = new WebSocket(`ws://${window.location.hostname}:3001`)
@@ -41,7 +46,6 @@ export default class App extends Component {
         case "incomingNotification":
           let allNotifications = this.state.messages.concat(newMessage);
           this.setState({
-            currentUser: newMessage.username,
             messages: allNotifications
           })
           break;
@@ -49,15 +53,14 @@ export default class App extends Component {
           this.setState({
             userCount: newMessage.userCount
           })
-          console.log("Incoming users: ", newMessage.currentColour);
-          console.log("also ", newMessage.userCount);
           break;
         case "incomingColour":
-          this.setState({
-            userCount: newMessage.userCount,
-            currentColour: newMessage.currentColour
-          })
-          break;
+          const newColour = newMessage.currentColour
+            this.setState({
+              userCount: newMessage.userCount,
+              currentColour: newMessage.currentColour
+            })
+          return newColour;
         default:
           throw new Error("Unknown event type" + data.type);
       }

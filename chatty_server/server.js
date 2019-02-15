@@ -29,7 +29,7 @@ wss.broadcast = function broadcast(data) {
   });
 };
 
-wss.on('connection', (ws) => {
+wss.on('connection', (ws, req) => {
   console.log('Client connected');
   wss.clients.forEach(function each(client) {
     if (client === ws) {
