@@ -6,7 +6,7 @@ export default class MessageList extends Component {
 
   return (
       <main className="messages">
-        <Message messages={this.props.messages} />
+        <Message messages={this.props.messages} currentColour={this.props.currentColour} />
       </main>
     )
   }

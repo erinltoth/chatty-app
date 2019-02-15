@@ -49,6 +49,14 @@ export default class App extends Component {
           this.setState({
             userCount: newMessage.userCount
           })
+          console.log("Incoming users: ", newMessage.currentColour);
+          console.log("also ", newMessage.userCount);
+          break;
+        case "incomingColour":
+          this.setState({
+            userCount: newMessage.userCount,
+            currentColour: newMessage.currentColour
+          })
           break;
         default:
           throw new Error("Unknown event type" + data.type);
@@ -63,7 +71,7 @@ export default class App extends Component {
     return (
       <div>
         <Nav userCount={this.state.userCount} />
-        <MessageList messages={this.state.messages} />
+        <MessageList messages={this.state.messages} currentColour={this.state.currentColour} />
         <ChatBar currentUser={this.state.currentUser} addNewMessage={this.addNewMessage} addNewUser={this.addNewUser} />
       </div>
     );

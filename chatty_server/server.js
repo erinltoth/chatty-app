@@ -3,6 +3,12 @@ const uuidv4 = require('uuid/v4');
 const WebSocket = require('ws');
 const SocketServer = WebSocket.Server;
 
+addNewColour = () => {
+  let colourArray = ["#44355B", "#47E5BC", "#EFCA08", "#48BEFF", "#912F56", "#000000"];
+  let randomColour = colourArray[Math.floor(Math.random()*colourArray.length)];
+  return randomColour;
+}
+
 // Set the port to 3001
 const PORT = 3001;
 
@@ -25,12 +31,26 @@ wss.broadcast = function broadcast(data) {
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
-  console.log(wss.clients.size);
-  let newUserMsg = {
+  wss.clients.forEach(function each(client) {
+    if (client === ws) {
+      let newUserMsg = {
+        userCount: wss.clients.size,
+        type: "incomingColour",
+        currentColour: addNewColour()
+      }
+      console.log(newUserMsg);
+      wss.broadcast(JSON.stringify(newUserMsg));
+    }
+  }) 
+    console.log("NOT HERE!");
+    let newUserMsg = {
     userCount: wss.clients.size,
-    type: "incomingUsers"
-  }
-  wss.broadcast(JSON.stringify(newUserMsg));
+    type: "incomingUsers"  
+    }
+    console.log(newUserMsg);
+    wss.broadcast(JSON.stringify(newUserMsg));
+  
+  
   ws.on('message', function incoming (message) {
     const msg = JSON.parse(message);
     switch(msg.type) {
